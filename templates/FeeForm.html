@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Fee From</title>
+        <link rel = "icon" type = "image/png" href = "../static/images/headicon.png">
+        <link rel="stylesheet" href="../static/style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    </head>
+    <style>
+      .navbar{
+<!--        background-color:  !important;-->
+      }
+
+    </style>
+
+<body>
+   <!-- navbar start     -->
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"> <img src="../static/images/headicon.png" class="Imag" /> <span class="OCR"> Smart Shutter &nbsp;</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+          <a class="nav-link" href="/home">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/FeeForm">Fee Form</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/AdmissionForm">Admission Form</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/CustomizeForm">Customize Form</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Data">Data Visualization</a>
+        </li>
+
+        
+      </ul>
+    </div>
+  </nav>
+<!-- navbar ends -->
+
+  <div class="container">
+    <center>
+      <h1 style="color:#007bff; padding-top: 50px; text-shadow: 2px 2px 3px #170842">{{frm1d}}</h1>
+      <h1 class="Fee">Fee Form</h1><hr>
+    </center>
+    <div class="text-center">
+      <img src="../static/QueryImage/Query1.png" class="rounded img-fluid query1">
+    </div>
+    
+    <hr>
+
+    <div class="row">
+      <!-- query image -->
+        <div class="container" style="padding-top: 60px;" >
+          <h1 class="text-center" style="color: #820000;"><span class="UploadFromText">Upload User Forms</span></h1><hr><br>
+            <div class="d-flex justify-content-center">
+               <!-- <input type="file" id="upload_file" name="upload_file[]" onchange="preview_image();" multiple> -->
+               <input type="file" id="upload_file" name="upload_file[]" multiple>
+              </div><br><br>
+            
+            <div class="container">
+              <div class="row">
+                <div id="image_preview" class="rounded"></div>
+              </div>
+            </div>
+        </div>
+    </div> 
+    <hr>
+    <div class="row">
+      <div class="container d-flex justify-content-center"><br>
+        <form action="/FeeForm" method="POST">
+          <button type="submit" name="" value="sub" class="btn btn-primary" style="font-size: 1rem; background-color: #820000; border-color: #820000;">Submit</button>
+        </form>  
+        </div><br><br>
+        
+    </div><br><br><br>  
+  </div>
+
+</body>
+
+</html>
+
+<script>
+  
+function preview_image()
+{
+ var total_file=document.getElementById("upload_file").files.length;
+ for(var i=0;i<total_file;i++)
+ {
+  $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'><br>");
+  
+ }
+}
+</script>

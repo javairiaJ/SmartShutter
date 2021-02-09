@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Fee From</title>
+        <link rel = "icon" type = "image/png" href = "../static/images/headicon.png">
+        <link rel="stylesheet" href="../static/style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    </head>
+    <style>
+      .navbar{
+<!--        background-color: #000000 !important;-->
+      }
+
+
+    </style>
+
+<body style="overflow-x: hidden;">
+   <!-- navbar start     -->
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"> <img src="../static/images/headicon.png" class="Imag" /> <span class="OCR"> Smart Shutter &nbsp;</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+          <a class="nav-link" href="/home">Home</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="/FeeForm">Fee Form</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/AdmissionForm">Admission Form</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/CustomizeForm">Customize Form</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/Data">Data Visualization</a>
+        </li>
+
+        
+      </ul>
+    </div>
+  </nav>
+<!-- navbar ends -->
+          
+  <div class="container-fluid mt-5">
+    
+    <div class="row d-flex justify-content-center">
+    <button class="btn btn-primary mb-5 " onclick=readTextFile1() style="margin-left: 20px !important; background-color: #820000; border-color: #820000;">Fee Form Data</button><br>
+    <button class="btn btn-primary mb-5 " onclick=readTextFile2() style="margin-left: 20px !important; background-color: #820000; border-color: #820000;">Admission Form Data</button><br>
+    <button class="btn btn-primary mb-5 " onclick=readTextFile3() style="margin-left: 20px !important; background-color: #820000; border-color: #820000;">Customize Form Data</button><br>
+    </div>
+    
+    <table id="records" class="table table-bordered table-responsive"></table>
+    <center>
+    <button onclick="exportTableToCSV1('Fee_Form.csv')" id="1"class="btn btn-primary mt-5" style="font-size: 1rem; background-color: #820000; border-color: #820000;">Export Fee Form CSV</button>
+    <button onclick="exportTableToCSV2('Admission_Form.csv')" id="2"class="btn btn-primary mt-5" style="font-size: 1rem; background-color: #820000; border-color: #820000;">Export Admission Form CSV</button>
+    <button onclick="exportTableToCSV3('Custom_Form.csv')" id="3" class="btn btn-primary mt-5" style="font-size: 1rem; background-color: #820000; border-color: #820000;">Export Customize Form CSV</button>
+    
+  </center> 
+  </div>
+</body>
+
+<script>
+    
+   
+    
+    
+    function readTextFile1() {
+      document.getElementById('1').style.display = 'inline';
+      document.getElementById('2').style.display = 'none';
+      document.getElementById('3').style.display = 'none';
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET","{{ url_for('static', filename = 'Form1Output.csv') }}", true);
+    rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4) {
+            if (rawFile.status === 200 || rawFile.status == 0) {
+                var allText = rawFile.responseText;
+                var res = allText.split(/\r\n|\n/);
+                //console.log(res);
+                parse(res);
+            }
+        }
+    }
+    rawFile.send(null);
+}
+
+function readTextFile2() {
+    document.getElementById('1').style.display = 'none';
+    document.getElementById('2').style.display = 'inline';
+    document.getElementById('3').style.display = 'none';
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET","{{ url_for('static', filename = 'Form2Output.csv') }}", true);
+    rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4) {
+            if (rawFile.status === 200 || rawFile.status == 0) {
+                var allText = rawFile.responseText;
+                var res = allText.split(/\r\n|\n/);
+                //console.log(res);
+                parse(res);
+            }
+        }
+    }
+    rawFile.send(null);
+}
+
+function readTextFile3() {
+  document.getElementById('1').style.display = 'none';
+  document.getElementById('2').style.display = 'none';
+  document.getElementById('3').style.display = 'inline';
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET","{{ url_for('static', filename = 'DataOutputCustom.csv') }}", true);
+    rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4) {
+            if (rawFile.status === 200 || rawFile.status == 0) {
+                var allText = rawFile.responseText;
+                var res = allText.split(/\r\n|\n/);
+                //console.log(res);
+                parse(res);
+            }
+        }
+    }
+    rawFile.send(null);
+}
+//readTextFile("DataOutput.csv");
+
+function parse(rawData)
+
+{
+    let tbody = "";
+
+    for(let i = 0; i < rawData.length; i++)
+    {
+        let rawRow = rawData[i];
+        let res = rawRow.split(",");
+        // console.log(res);
+        let newRow = "<tr>";
+
+        for(let k = 0; k < res.length; k++)
+        {
+            let newData = "<td>" + res[k] + "</td>";
+            newRow += newData;
+        }
+        newRow += "</tr>" +  "</tr>";
+        tbody += newRow;
+    }
+    //console.log(tbody)
+    $("#records").html(tbody);
+}
+
+
+function exportTableToCSV1(filename) {
+
+  var csv = [];
+    var rows = document.querySelectorAll("table tr");
+    
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll("td, th");
+        
+        for (var j = 0; j < cols.length; j++) 
+            row.push(cols[j].innerText);
+        
+        csv.push(row.join(","));        
+    }
+
+
+    // Download CSV file
+    downloadCSV(csv.join("\n"), filename);
+}
+function exportTableToCSV2(filename) {
+
+var csv = [];
+  var rows = document.querySelectorAll("table tr");
+  
+  for (var i = 0; i < rows.length; i++) {
+      var row = [], cols = rows[i].querySelectorAll("td, th");
+      
+      for (var j = 0; j < cols.length; j++) 
+          row.push(cols[j].innerText);
+      
+      csv.push(row.join(","));        
+  }
+
+
+  // Download CSV file
+  downloadCSV(csv.join("\n"), filename);
+}
+function exportTableToCSV3(filename) {
+
+var csv = [];
+  var rows = document.querySelectorAll("table tr");
+  
+  for (var i = 0; i < rows.length; i++) {
+      var row = [], cols = rows[i].querySelectorAll("td, th");
+      
+      for (var j = 0; j < cols.length; j++) 
+          row.push(cols[j].innerText);
+      
+      csv.push(row.join(","));        
+  }
+
+
+  // Download CSV file
+  downloadCSV(csv.join("\n"), filename);
+}
+
+function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+
+    // CSV file
+    csvFile = new Blob([csv], {type: "text/csv"});
+
+    // Download link
+    downloadLink = document.createElement("a");
+
+    // File name
+    downloadLink.download = filename;
+
+    // Create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    // Hide download link
+    downloadLink.style.display = "none";
+
+    // Add the link to DOM
+    document.body.appendChild(downloadLink);
+
+    // Click download link
+    downloadLink.click();
+}
+
+    </script>
+</html>
